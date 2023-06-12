@@ -1,6 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+	const navigate = useNavigate();
+
+	const handleclick = () => {
+		navigate('/dashboard')
+		// window.location.replace("/dashboard");
+	}
 	return (
 		<div>
 			<section className="login">
@@ -13,7 +20,7 @@ const Login = () => {
 								<h3>SIGN IN</h3>
 								<input type="text" placeholder="USERNAME" />
 								<input type="text" placeholder="PASSWORD" />
-								<button className="submit">LET'S GO</button>
+								<button className="submit" onClick={handleclick}>LET'S GO</button>
 							</form>
 						</div>
 					</div>
