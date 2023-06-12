@@ -1,0 +1,69 @@
+ @use "../abstracts/colors" as c;
+
+.entries-perpage {
+  color: #5c5c5c;
+  margin-left: 25px;
+  white-space: nowrap !important;
+}
+.entries-perpage select { 
+  color: #5c5c5c;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  outline: none;
+  border: 0;
+  border: 1px solid #cfcfcf;
+  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+}
+.entries-perpage select:focus {
+  border: 1px solid #7D249C;
+  box-sizing: 0 0 3px #000;
+  transition: all 0.3s ease-out;
+  -webkit-transition: all 0.3s ease-out;
+}
+
+@media only screen and (max-width: 1220px) { 
+
+.entries-perpage {
+  color: #5c5c5c;
+  margin-left: 25px;
+  white-space: nowrap !important;
+  margin-right: 1rem !important;
+}
+
+}
+
+.Search-input-bg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px; 
+  border-radius: 3px;
+}
+.Search-input-bg:hover{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color:  c.color(primary-opacity-color);
+   color: c.color(white) !important;
+  border-radius: 3px;
+}
+
+.Search-input {
+  color: c.color(border);
+  padding: 7px;
+  font-size: 30px;
+  font-weight: bold;
+}
+.Search-input :hover{
+  color: c.color(white) !important;
+  padding: 7px;
+  font-size: 30px;
+  font-weight: bold;
+}

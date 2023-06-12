@@ -1,0 +1,170 @@
+ul:where([role="list"]) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+// section {
+//   padding-block: clamp(2rem, 5vw, 3rem);
+// }
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.container svg {
+  height: 2.5ex;
+  width: auto;
+  flex: none;
+  fill: currentColor;
+}
+
+.container {
+  width: min(100% - 2rem, 63em);
+  margin-inline: auto;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-header * {
+  margin: 0;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: 1.5rem;
+  padding-block: 1.5rem;
+}
+
+.cards[data-layout="list"] {
+  grid-template-columns: 1fr;
+}
+
+.card {
+  width: min(100%, 20rem);
+  margin-inline: auto;
+  background-color: #fff;
+  border-radius: 0.5em;
+  overflow: hidden;
+  box-shadow: 1.95px 1.95px 2.6px rgba(0, 0, 0, 0.2);
+}
+
+.card__content {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.cards[data-layout="list"] .card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: stretch;
+}
+
+.cards[data-layout="list"] .card__content {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (width < 40em) {
+  .cards[data-layout="list"] .card {
+    grid-template-columns: 1fr 3fr;
+  }
+
+  .cards[data-layout="list"] .card__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card * {
+  margin: 0;
+}
+
+.card__img-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__content h3 {
+  text-transform: capitalize;
+}
+
+.button-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.button-group--collapse {
+  gap: 0;
+  border-radius: 0.25em;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.button-group--collapse > .button {
+  border-radius: 0;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.5em 1.5em;
+  border-radius: 0.25em;
+  border: 0;
+
+  text-decoration: none;
+  background-color: #1b2435;
+  color: #fff;
+  transition: background-color 250ms ease;
+}
+
+.button:is(:hover, :focus-visible) {
+  background-color: #8600bb;
+  color: #fff;
+}
+
+.button:active {
+  scale: 0.97;
+}
+
+.button--icon-only {
+  padding: 0.5em;
+  background-color: #fff;
+  color: #1b2435;
+}
+
+.button.active {
+  background-color: #8600bb;
+  color: #fff;
+}

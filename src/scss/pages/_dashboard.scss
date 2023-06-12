@@ -1,0 +1,59 @@
+.dashboardmainchart{
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+ width: 100%;
+	height: 35%; 
+	border-radius: 5px;
+ 	gap: 5rem;
+		padding: 1rem;
+}
+
+.dashboard-first-card{
+width: 100%;
+height: 100%; 
+background: #CECCE4;
+border-radius: 20px;
+}
+.dashboard-second-card{
+width: 100%;
+height: 100%; 
+background: #CECCE4;
+border-radius: 20px;
+}
+.dashboard-third-card{
+width: 100%;
+height: 100%; 
+background: #CECCE4;
+border-radius: 20px;
+}
+.dashboardmainchart-two{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}
+
+.card-sup-one{
+	width: 100%;
+height: 100%; 
+background: #7D249C;
+border-radius: 20px;
+}
+.card-sup-two{
+	width: 100%;
+height: 100%; 
+background: #E5D4EB;
+border-radius: 20px;
+}
+
+.dashboard-table{
+margin: 1rem;
+ 
+}
+
+.main-title{
+	font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 19px; 
+color: #000000;
+}
