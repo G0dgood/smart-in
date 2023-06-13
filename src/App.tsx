@@ -23,7 +23,7 @@ const App: React.FC<any> = () => {
     <BrowserRouter>
       <Routes>
         {/* @ts-ignore */}
-        <Route path="/" element={<Dashboard />} exact />
+        <Route path="/" element={<Login />} exact />
         {/* protected routes for auth */}
         <Route path="/" element={auth} >
           <Route path="/dashboard" element={<Dashboard />} />

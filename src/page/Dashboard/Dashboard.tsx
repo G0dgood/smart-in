@@ -1,5 +1,6 @@
 import React from 'react'
 import DashboardTable from './DashboardTable'
+import Barchat from '../../components/Barchat'
 
 const Dashboard = () => {
 	return (
@@ -7,7 +8,7 @@ const Dashboard = () => {
 			<div className='dashboardmainchart'>
 				<div>
 					<div className='dashboard-first-card'>
-
+						<Barchat />
 					</div>
 				</div>
 				<div className='dashboardmainchart-two'>
