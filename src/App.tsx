@@ -12,28 +12,37 @@ import Repairs from './page/Repairs/Repairs';
 import Store from './page/Store/Store';
 import RegisterUser from './page/Users/RegisterUser';
 import CreateClient from './page/Users/CreateClient';
-import CreateRole from './page/Users/CreateRole';
+import CreateRole from './page/Users/LoginUser';
+import LoginUser from './page/Users/LoginUser';
+import ViewInventory from './page/LaptopRequests/ViewInventory';
 
 const App: React.FC<any> = () => {
-  const user = "user"
-  const token = "ihkuhuhajibbibib"
-  const auth = <Protected loggedIn={user && token}><Layout /></Protected>
+  // @ts-ignore
+  const user = JSON.parse(localStorage.getItem("userin"));
+
+  const auth = <Protected loggedIn={user && user?.token}><Layout /></Protected>
 
   return (
     <BrowserRouter>
       <Routes>
-        {/* @ts-ignore */}
-        <Route path="/" element={<Login />} exact />
+
+        <Route path="/login" element={<Login />} />
         {/* protected routes for auth */}
         <Route path="/" element={auth} >
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/laptoprequests" element={<LaptopRequests />} />
+          <Route index element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+          <Route path="inventory">
+            <Route index element={<LaptopRequests />} />
+            <Route path="/inventory/viewinventory/:id/view" element={<ViewInventory />} />
+          </Route>
+
           <Route path="/repairs" element={<Repairs />} />
           <Route path="/store" element={<Store title={''} />} />
           <Route path="/registeruser" element={<RegisterUser />} />
           <Route path="/createclient" element={<CreateClient />} />
-          <Route path="/createrole" element={<CreateRole />} />
+          <Route path="/loginuser" element={<LoginUser />} />
           <Route path="/allRecords" element={<AllRecords />} />
+
         </Route>
 
       </Routes>

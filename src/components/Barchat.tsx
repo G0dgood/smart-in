@@ -54,10 +54,10 @@ const Barchat = ({ employees, departments }: any) => {
   // labels: Object?.keys(Name)?.splice(0, 9),
 
   const data = {
-    labels: ["boy", "girl", "you", "rice", "bea", "ben"],
+    labels: ["laptop", "mouse", "keyboard", "Mac", "HP", "Dell"],
     datasets: [
       {
-        label: "People in Department",
+        label: "Nummber of Inventories!",
         data: [20, 40, 10, 100, 50, 70],
         backgroundColor: "#7D249C",
         barPercentage: 0.2,

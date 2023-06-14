@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { EntriesPerPage } from '../../components/TableOptions'
+import { EntriesPerPage, NoRecordFound, TableFetch } from '../../components/TableOptions'
+import { useAppDispatch, useAppSelector } from '../../store/useStore';
+import { getInventory } from '../../features/Inventory/inventorySlice';
+import { NavLink } from 'react-router-dom';
 
 
 interface containerProps {
@@ -7,6 +10,7 @@ interface containerProps {
 	title: string,
 }
 const Store: React.FC<containerProps> = () => {
+	const dispatch = useAppDispatch();
 	// --- Pagination --- //
 	const [entriesPerPage, setEntriesPerPage] = useState(() => {
 		return localStorage.getItem("reportsPerPages") || "10";
@@ -28,14 +32,19 @@ const Store: React.FC<containerProps> = () => {
 
 			cardsElem.setAttribute("data-layout", layoutControl);
 
-			[...layoutControllerBtns].map((btn) => btn.classNameList.remove("active"));
+			[...layoutControllerBtns]?.map((btn) => btn.classNameList.remove("active"));
 
 			btn.classNameList.add("active");
 		});
 	});
 
+	const { getdata, getisLoading } = useAppSelector((state: any) => state.inventory);
+	useEffect(() => {
+		dispatch(getInventory())
 
+	}, [dispatch])
 
+	console.log('getdata', getdata)
 
 
 	const [displayData, setDisplayData] = useState([]);
@@ -54,16 +63,12 @@ const Store: React.FC<containerProps> = () => {
 				</div>
 				<div>
 
-					{/* <LaptopAssignModal /> */}
+
 
 				</div>
 			</div>
 
 			<div>
-				{/* <div >
-					<div>dd</div>
-					<div>dd</div>
-				</div> */}
 				<section>
 					<div className="container">
 						<div className="section-header">
@@ -82,78 +87,32 @@ const Store: React.FC<containerProps> = () => {
 							</div>
 						</div>
 						<ul role="list" className="cards" id="cards" data-layout="grid">
-							<li>
-								<div className="card">
-									<div className="card__img-wrapper">
-										<img className="card__img" src="https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODYyMjg2OTN8&ixlib=rb-4.0.3&q=80&w=400" alt="" />
-									</div>
-									<div className="card__content">
-										<h3>Mouse</h3>
-										<p>Mouse</p>
-										<a href="#" className="button">View</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div className="card">
-									<div className="card__img-wrapper">
-										<img className="card__img" src="https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODYyMjg2OTN8&ixlib=rb-4.0.3&q=80&w=400" alt="" />
-									</div>
-									<div className="card__content">
-										<h3>Key Board</h3>
-										<p>Enjoy your time</p>
-										<a href="#" className="button">View</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div className="card">
-									<div className="card__img-wrapper">
-										<img className="card__img" src="https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODYyMjg2OTN8&ixlib=rb-4.0.3&q=80&w=400" alt="" />
-									</div>
-									<div className="card__content">
-										<h3>Laptop</h3>
-										<p>Laptop</p>
-										<a href="#" className="button">View</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div className="card">
-									<div className="card__img-wrapper">
-										<img className="card__img" src="https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODYyMjg2OTN8&ixlib=rb-4.0.3&q=80&w=400" alt="" />
-									</div>
-									<div className="card__content">
-										<h3>DeskTop</h3>
-										<p>DeskTop</p>
-										<a href="#" className="button">View</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div className="card">
-									<div className="card__img-wrapper">
-										<img className="card__img" src="https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODYyMjg2OTN8&ixlib=rb-4.0.3&q=80&w=400" alt="" />
-									</div>
-									<div className="card__content">
-										<h3>Head Phone</h3>
-										<p>Head Phone</p>
-										<a href="#" className="button">View</a>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div className="card">
-									<div className="card__img-wrapper">
-										<img className="card__img" src="https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODYyMjg2OTN8&ixlib=rb-4.0.3&q=80&w=400" alt="" />
-									</div>
-									<div className="card__content">
-										<h3>Windows vs Mac</h3>
-										<p>Windows vs Mac</p>
-										<a href="#" className="button">View</a>
-									</div>
-								</div>
-							</li>
+
+							{
+								getisLoading ? (
+									<TableFetch colSpan={14} />
+								) : getdata?.inventory === 0 || getdata?.inventory === undefined ? (
+									<NoRecordFound colSpan={14} />
+								) : (getdata?.inventory?.map((item: any, i: any) => (
+									<li key={i}>
+										<div className="card">
+											<div className="card__img-wrapper">
+												<img className="card__img" src="https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2ODYyMjg2OTN8&ixlib=rb-4.0.3&q=80&w=400" alt="" />
+											</div>
+											<div className="card__content">
+												<h3>{item?.laptopName}</h3>
+												<p>{item?.modelName}</p>
+												<NavLink
+													to={`/inventory/viewinventory/${item?.id}/view`}
+													className="button"
+												>
+													View
+												</NavLink>
+											</div>
+										</div>
+									</li>
+								)))}
+
 						</ul>
 					</div>
 				</section>

@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import TableLoader from '../../components/TableLoader'
 import { EntriesPerPage, NoRecordFound, TableFetch } from '../../components/TableOptions'
+import { getallReguser, reset } from '../../features/Registration/registrationSlice'
+import { useAppDispatch, useAppSelector } from '../../store/useStore'
+import { fireAlert } from '../../components/Alert'
+import Pagination from '../../components/Pagination'
+import RegisterModal from '../../components/RegisterModal'
 
 const RegisterUser = () => {
 	// --- Pagination --- //
@@ -9,18 +14,29 @@ const RegisterUser = () => {
 		return localStorage.getItem("reportsPerPages") || "10";
 	});
 
+	const dispatch = useAppDispatch();
+	const { dataAll, isErrorAll, messageAll, isLoadingALl } = useAppSelector((state: any) => state.registration);
+	const { isSuccess } = useAppSelector((state: any) => state.registration)
+
 	useEffect(() => {
-		localStorage.setItem("reportsPerPages", entriesPerPage);
-	}, [entriesPerPage]);
+		dispatch(getallReguser());
+	}, [dispatch]);
 
-
-
-
+	useEffect(() => {
+		if (isErrorAll) {
+			fireAlert("error", messageAll, 'error');
+			dispatch(reset());
+		} else if (isSuccess) {
+			dispatch(getallReguser());
+		}
+	}, [dispatch, isErrorAll, isSuccess, messageAll]);
 
 
 
 
 	const [displayData, setDisplayData] = useState([]);
+
+
 	return (
 		<div className='container-main-two'>
 			<div  >
@@ -30,31 +46,25 @@ const RegisterUser = () => {
 					</div>
 					<div>
 						<EntriesPerPage
-							data={displayData}
+							data={dataAll}
 							entriesPerPage={entriesPerPage}
 							setEntriesPerPage={setEntriesPerPage}
 						/>
 					</div>
 					<div>
-
-						{/* <LaptopAssignModal /> */}
-
+						<RegisterModal />
 					</div>
 				</div>
-
 				<section className="md-ui component-data-table">
-					{false ? <TableLoader isLoading={false} /> : ""}
+					{isLoadingALl ? <TableLoader isLoading={isLoadingALl} /> : ""}
 					<div className="main-table-wrapper">
 						<table className="main-table-content">
 							<thead className="data-table-header  " >
-								<tr className="data-table-row "> 
-
-									<td className="table-datacell datatype-numeric"> </td>
+								<tr className="data-table-row ">
 									<td className='table-datacell datatype-string'>First Name</td>
 									<td className="table-datacell datatype-numeric">Last Name</td>
 									<td className="table-datacell datatype-numeric">Email</td>
 									<td className="table-datacell datatype-numeric">Phone Number</td>
-									<td className="table-datacell datatype-numeric">Client Name</td>
 									<td className="table-datacell datatype-numeric">Role</td>
 									<td className="table-datacell datatype-numeric">isActive</td>
 									<td className="table-datacell datatype-numeric">Edit User</td>
@@ -63,44 +73,44 @@ const RegisterUser = () => {
 							</thead>
 							<tbody className="data-table-content">
 								{
-									false ? (
-										<TableFetch colSpan={14} />
+									isLoadingALl ? (
+										<TableFetch colSpan={9} />
 									) : displayData?.length === 0 || displayData === undefined ? (
-										<NoRecordFound colSpan={14} />
+										<NoRecordFound colSpan={9} />
 									) : (displayData?.map((item: any, i: any) => (
-										<tr className="data-table-row" key={i}> 
-											<td className="table-datacell datatype-string"> </td>
-											<td className="table-datacell datatype-string">{item.fullname}</td>
-											<td className="table-datacell datatype-numeric">{item.department}</td>
-											<td className="table-datacell datatype-numeric">{item.employeeStatus}</td>
-											<td className="table-datacell datatype-numeric">{item.systemName}</td>
-											<td className="table-datacell datatype-numeric">{item.systemType}</td>
-											<td className="table-datacell datatype-numeric">{item.serialNumber}</td>
-											<td className="table-datacell datatype-numeric">{item.monitor}</td>
-											<td className="table-datacell datatype-numeric">{item.monitorSerialNumber}</td> 
+										<tr className="data-table-row" key={i}>
+											<td className="table-datacell datatype-numeric"> {item.firstName} 	</td>
+											<td className="table-datacell datatype-numeric"> 	{item.LastName} 	</td>
+											<td className="table-datacell datatype-numeric"> {item.email} </td>
+											<td className="table-datacell datatype-numeric"> {item.phoneNumber} </td>
+											<td className="table-datacell datatype-string"> 	{item.role} </td>
+											<td className="table-datacell datatype-numeric">
+												<button className="table-link-active">
+													{item.isEnabled === true ? "Active" : "Deactivated"}
+												</button>
+											</td>
 											<td className="table-datacell datatype-numeric">
 												<NavLink
 													to={`/laptopinform/${item._id}/update`}
-													className="update-btn rounded-5"
+													className="table-link"
 													style={{ background: "#E2522E", boxShadow: "none" }}>
 													View
 												</NavLink>
 											</td>
 										</tr>
 									)))}
-
 							</tbody>
 						</table>
 					</div>
 
 				</section>
 				<footer className="main-table-footer">
-					{/* <Pagination
-					setDisplayData={setDisplayData}
-					data={allLeavedata?.data}
-					entriesPerPage={entriesPerPage}
-					Total={"Leave"}
-				/> */}
+					<Pagination
+						setDisplayData={setDisplayData}
+						data={dataAll}
+						entriesPerPage={entriesPerPage}
+						Total={"Registered User"}
+					/>
 				</footer>
 			</div>
 		</div>
@@ -108,3 +118,4 @@ const RegisterUser = () => {
 }
 
 export default RegisterUser
+

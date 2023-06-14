@@ -10,22 +10,18 @@ import { IoIosNotifications } from "react-icons/io";
 import toast, { Toaster } from "react-hot-toast";
 // import LogoutOption from "./LogoutOption";
 // import Notification from "./Notification/Notification";
-
-
-
 import { callback } from "chart.js/dist/helpers/helpers.core";
+import { logout } from "../features/Auth/authService";
+import { useAppDispatch } from "../store/useStore";
+import UserProfile from "./UserProfile";
 
 
 const Header = ({ toggleSideNav }: any) => {
-  // const userInfo = dataService.getData(`${process.env.REACT_APP_ERP_USER_INFO}`)
-  // const dispatch = useAppDispatch();
-  const [refresh, setRefresh] = useState<any>(false);
+  const dispatch = useAppDispatch()
+
+
   const [network, setnetwork] = useState<any>();
   const [dropDown, setDropDown] = useState(false);
-  const [dropDownNoti, setDropDownNoti] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [notification, setNotification] = useState<any>();
-
 
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -58,20 +54,26 @@ const Header = ({ toggleSideNav }: any) => {
   const [isOpen, setIsopen] = useState(false);
   // const [data, setData] = useState(false);
   const [showLogout, setShowLogout] = useState<any>(false);
+  const [showProfile, setShowProfile] = useState<any>(false);
 
 
   const ToggleSidebar = () => {
     isOpen === true ? setIsopen(false) : setIsopen(true);
   };
 
-  const handleNoti = () => {
-    if (!dropDownNoti) {
-      setDropDownNoti(true)
-    } else {
-      setDropDownNoti(false)
-    }
-  }
+  // const handleNoti = () => {
+  //   if (!dropDownNoti) {
+  //     setDropDownNoti(true)
+  //   } else {
+  //     setDropDownNoti(false)
+  //   }
+  // }
 
+  const handelLogout = () => {
+    window.location.replace("/login");
+    // @ts-ignore
+    dispatch(logout())
+  }
 
 
 
@@ -106,28 +108,18 @@ const Header = ({ toggleSideNav }: any) => {
 
 
 
-          <div className="header-logo">
-            {/* <img src={logo} alt="ASL" /> */}
+          <div className="header-logo" style={{ color: "purple" }}>
+            {/* <img src={logo} alt="I" /> */}
+            <h6>SMART INVENTORY</h6>
           </div>
-          <span className="header-logo-text">{/* Line Manager */}</span>
+
           <span className="header-logo-text1">
             {"Johndoe.go@gmail.com"}
           </span>
         </div>
         <div className="hand-noficational-place">
 
-          <div className="hand-noficational-place-sup" >
-            <div className="Messages-button" onClick={handleNoti}>
-              <span className="content">
-                <IoIosNotifications size={30} />
-              </span>
-              <span className="badge">{notification?.new_notification_count}</span>
-            </div>
-            {dropDownNoti &&
-              (<div className="user-details-noti">
-                {/* <Notification handleNext={handleNext} handlePrev={handlePrev} notification={notification} loading={loading} /> */}
-              </div>)}
-          </div>
+
 
           <div
             className="d-flex header-user-details"
@@ -144,14 +136,15 @@ const Header = ({ toggleSideNav }: any) => {
             {dropDown && (
               <div className="dropdown">
                 <Nav className="flex-column">
-                  <NavLink to="/profile" className="drop-user-settings">
+                  <NavLink to="" className="drop-user-settings" onClick={() => setShowProfile(true)}>
+
                     <CgProfile size={20} className="dropdown-icons-tools" />
                     Profile
                   </NavLink>
                   <NavLink
                     to=""
                     className="drop-logout"
-                    onClick={() => setShowLogout(true)}
+                    onClick={handelLogout}
                   >
                     <AiOutlineLogout size={20} className="dropdown-icons-tools" />
                     Logout
@@ -162,13 +155,14 @@ const Header = ({ toggleSideNav }: any) => {
           </div>
         </div>
       </div>
+      <UserProfile setShowProfile={setShowProfile} showProfile={showProfile} />
       {/* <LogoutOption showLogout={showLogout} setShowLogout={setShowLogout} />
       <MobileSideBar
         ToggleSidebar={ToggleSidebar}
         isOpen={isOpen}
       // setHideNav={setHideNav}
       /> */}
-    </div>
+    </div >
   );
 };
 

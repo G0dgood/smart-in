@@ -34,12 +34,12 @@ const Sidebar = ({
       {/* Content */}
       <SidebarContent>
         <Menu iconShape="circle">
-          <MenuItem className='Side__Content' active={pathname === '/dashboard'} icon={<AiIcons.AiFillDashboard size={23} />} suffix={<span className="badge red">NEW</span>} >
-            Dashboard  <Link to="/dashboard" /> </MenuItem>
+          <MenuItem className='Side__Content' active={pathname === '/'} icon={<AiIcons.AiFillDashboard size={23} />} suffix={<span className="badge red">NEW</span>} >
+            Dashboard  <Link to="/" /> </MenuItem>
 
 
-          <MenuItem className='Side__Content' active={pathname === '/laptoprequests'} icon={<BsLaptopFill size={23} />}>
-            Laptop Requests <Link to="/laptoprequests" />
+          <MenuItem className='Side__Content' active={pathname === '/Inventory'} icon={<BsLaptopFill size={23} />}>
+            Inventory <Link to="/inventory" />
           </MenuItem>
 
           <MenuItem className='Side__Content' active={pathname === '/repairs'} icon={<GiSpanner size={23} />}>Repairs<Link to="/repairs" /> </MenuItem>
@@ -49,8 +49,7 @@ const Sidebar = ({
           <SubMenu suffix={<span className="badge yellow">3</span>} title={'Users'} icon={<HiUsers size={23} />}>
             <MenuItem className='Side__Content' active={pathname === '/registeruser'}>  <Link to="/registeruser" />Register User</MenuItem>
 
-            <MenuItem className='Side__Content' active={pathname === '/createclient'}> <Link to="/createclient" />Create Client</MenuItem>
-            <MenuItem className='Side__Content' active={pathname === '/createrole'}> <Link to="/createrole" />Create Role</MenuItem>
+            <MenuItem className='Side__Content' active={pathname === '/loginuser'}> <Link to="/loginuser" />Login User</MenuItem>
           </SubMenu>
           <MenuItem className='Side__Content' active={pathname === '/allRecords'} icon={<FaFolderOpen size={23} />}>All Records<Link to="/allRecords" />  </MenuItem>
 

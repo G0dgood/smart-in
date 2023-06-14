@@ -37,10 +37,10 @@ const LaptopRepairModal = () => {
 	return (
 		<div>
 			<Button
-				className="subone-header-flex-btn"
+				className="table-link"
 				onClick={() => setLgShow(true)}
 			>
-				<BsPlusLg size={10} color="#fff" className="Create-plue-account" />{" "}
+				<BsPlusLg size={10} color="#fff" />{" "}
 				Repair Information
 			</Button>
 			<Modal

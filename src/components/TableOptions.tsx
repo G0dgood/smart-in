@@ -1,3 +1,4 @@
+import { Spinner } from "react-bootstrap";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { VscCloudDownload } from "react-icons/vsc";
 // import Search from "./Search";
@@ -21,6 +22,12 @@ const EntriesPerPage = ({ data, entriesPerPage, setEntriesPerPage }: any) => (
         entries
       </>
     )}
+  </div>
+);
+
+const TableProgressBar = () => (
+  <div id="container-progressbar">
+    <div id="bar"></div>
   </div>
 );
 
@@ -67,6 +74,17 @@ const EmployeeStatus = ({
     {/* )} */}
   </div>
 );
+
+const Spinners = ({ size }: any) => (
+  <Spinner
+    as="span"
+    animation="border"
+    size={size}
+    role="status"
+    aria-hidden="true"
+  />
+);
+
 
 // TableFetch
 const TableFetch = ({ colSpan }: any) => (
@@ -136,5 +154,7 @@ export {
   EmployeeStatus,
   NoRecordFound,
   MainSearch,
-  InputField
+  InputField,
+  Spinners,
+  TableProgressBar
 };

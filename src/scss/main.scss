@@ -339,8 +339,51 @@ form.searchbox button:hover {
   gap: 1rem
 }
 
+#bar {
+  width: 100px;
+  height: 10px;
+  background:  linear-gradient(135deg, #21D4FD 0%, #124383 100%) !important; ;
+  border-radius: 6px;
+  box-shadow: 0 0 10px lightblue;
+  animation: load .5s infinite alternate ease-in-out;
+}
+
+td {
+  white-space: nowrap !important;
+}
+
+Button {
+  white-space: nowrap !important;
+}
+
+textarea {
+  width: 100%;
+  border: 2px solid c.color(border) !important;
+  border-radius: 5px;
+}
+input {
+  width: 100%;
+  padding: 0.9rem;
+  border: 2px solid c.color(border) !important;
+  border-radius: 5px;
+}
+
+select{
+   width: 100%;
+  padding: 0.9rem !important;
+  border: 2px solid c.color(border) !important;
+  border-radius: 5px; 
+}
+
+#btn-flex{
+  display: flex  !important; 
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 2rem
+}
 
  @import url(./pages/_dashboard.scss);
  @import url(./conponents/_tablecomponent.scss);
  @import url(./conponents/_tableoptions.scss);
  @import url(./pages/_user.scss);
+ @import url(./pages/_inventory.scss);

@@ -1,323 +1,214 @@
 import { Button } from '@mui/material';
-import React, { useState } from 'react'
-import { Col, Form, Modal } from 'react-bootstrap';
+import { useEffect, useState } from 'react'
+import { Col, Form, Modal, Spinner } from 'react-bootstrap';
 import { BsPlusLg } from 'react-icons/bs';
 import { MdOutlineClose } from 'react-icons/md';
+import { useAppDispatch, useAppSelector } from '../../store/useStore';
+import { createInventory, reset } from '../../features/Inventory/inventorySlice';
+import { fireAlert } from '../../components/Alert';
 
 const LaptopAssignModal = () => {
+	const dispatch = useAppDispatch();
 
-	const [lgShow, setLgShow] = useState(false);
-	const [fullname, setFullName] = useState("");
-	const [department, setDepartment] = useState("");
-	const [employeeStatus, setEmployeeStatus] = useState("");
-	const [systemName, setSystemName] = useState("");
-	const [systemType, setSystemType] = useState("");
-	const [serialNumber, setSerialNumber] = useState("");
-	const [monitor, setMonitor] = useState("");
-	const [monitorSerialNumber, setMonitorSerialNumber] = useState("");
-	const [HDD, setHDD] = useState("");
-	const [ramSize, setRamSize] = useState("");
-	const [windowsVersion, setWindowsVersion] = useState<Boolean>(false);
-	const [status, setStatus] = useState("");
-	const [systemCondition, setSystemCondition] = useState("");
-	const [systemStatus, setSystemStatus] = useState("");
-	const [showMessage, setShowMessage] = useState(false);
+	const { isError, message, isLoading, isSuccess } = useAppSelector((state: any) => state.inventory);
+	const [show, setShow] = useState(false);
+	// @ts-ignore  
+	const user = JSON.parse(localStorage.getItem("userin"));
 
 
-	const submitHandler = () => {
+
+	const [inputs, setInputs] = useState({
+		laptopName: "",
+		modelName: "",
+		serialNumber: "",
+		laptopStatus: "",
+		dateIssued: "",
+		retrievalDate: "",
+		previousUser: "",
+		comment: "",
+		userId: "",
+	})
+
+
+
+	useEffect(() => {
+		if (isError) {
+			fireAlert("error", message, 'error');
+			dispatch(reset());
+		}
+		else if (isSuccess) {
+			fireAlert("success", "Inventory Created", 'success');
+			setShow(false)
+			dispatch(reset());
+		}
+
+	}, [dispatch, isError, isSuccess, message]);
+
+
+
+
+
+	const submitHandler = (e: any) => {
+		e.preventDefault()
+		// @ts-ignore  
+		dispatch(createInventory(inputs))
 
 	}
 
-	const [show, setShow] = useState(false);
-	const handleClose = () => setShow(false);
-	const handleShow = () => {
-		setShow(true);
+	useEffect(() => {
+		setInputs((prevState: any) => {
+			return ({
+				...prevState,
+				userId: user?.user?.id
+			});
+		});
+	}, [setInputs, user?.user?.id]);
+
+
+
+	const handleOnChange = (input: any, value: any) => {
+		setInputs((prevState: any) => ({
+			...prevState,
+			[input]: value,
+		}));
 	};
+	const laptopStatus = ["Active", "Inactive"]
 
 	return (
 		<div>
 			<Button
-				className="subone-header-flex-btn"
-				onClick={() => setLgShow(true)}
+				className="table-link"
+				onClick={() => setShow(true)}
 			>
 				<BsPlusLg size={10} color="#fff" className="Create-plue-account" />{" "}
 				Get Information
 			</Button>
 			<Modal
 				size="lg"
-				show={lgShow}
+				show={show}
 				aria-labelledby="contained-modal-title-vcenter"
 				centered
 			>
 				<Modal.Header>
 					<span></span>
-					<span className="span-center-title">Create System Information</span>
-					<Button style={{ color: "#fff" }} onClick={() => setLgShow(false)}>
+					<span className="span-center-title">Create Inventory</span>
+					<Button style={{ color: "#fff" }} onClick={() => setShow(false)}>
 						<MdOutlineClose size={28} />
 					</Button>
 				</Modal.Header>
 				<Modal.Body>
 					<Form onSubmit={submitHandler}>
-						<Form>
+						<div>
 							<Form.Group as={Col} controlId="FirstName" className='mt-3'>
-								<Form.Label>Full Name</Form.Label>
-								<Form.Control
-									type="text"
-									placeholder="First Name"
-									value={fullname}
-									onChange={(e) => setFullName(e.target.value)}
-								/>
+								<div>
+									<h6 style={{ marginBottom: 10 }}>Laptop Name</h6>
+									<input type="text"
+										className='AddJobinput' style={{ marginBottom: "15px", }}
+										value={inputs?.laptopName}
+										onChange={(e) => handleOnChange("laptopName", e.target.value)}
+										placeholder='Laptop Name' required />
+								</div>
 							</Form.Group>
-							<div className='main-form-container'>
-								<Form.Group as={Col} controlId="formGridDepartment" className='mt-3'>
-									<Form.Label>Department</Form.Label>
-									<Form.Control
-										as="select"
-										size="sm"
 
-										value={department}
-										onChange={(e) => setDepartment(e.target.value)}>
-										<option value="">Select...</option>
-										<option value="Admin">Admin</option>
-										<option value="Sales">Sales</option>
-										<option value="MIS">MIS</option>
-										<option value="Projects">Projects</option>
-										<option value="Operations">Operations</option>
-										<option value="QA">QA</option>
-										<option value="Customer Service">
-											Customer Service
-										</option>
-										<option value="Human Resources">Human Resources</option>
-										<option value="IT">IT</option>
-										<option value="Training & Development">
-											Training & Development
-										</option>
-										<option value="Accounts">Accounts</option>
-										<option value="Enugu - MCN">Enugu - MCN</option>
-										<option value="Branch">Branch</option>
-										<option value="Multichoice">Multichoice</option>
-										<option value="Ntel">Ntel</option>
-										<option value="Fairmoney">Fairmoney</option>
-										<option value="KYC">KYC</option>
-										<option value="Sim swap">Sim swap</option>
-										<option value="Enterprise">Total</option>
-										<option value="Access bank">Access bank</option>
-										<option value="OUTCESS">OUTCESS</option>
-									</Form.Control>
-								</Form.Group>
-
-								<Form.Group as={Col} controlId="EmployeeStatus" className='mt-3'>
-									<Form.Label>Employee Status</Form.Label>
-									<Form.Control
-										as="select"
-
-										size="sm"
-										value={employeeStatus}
-										onChange={(e) => setEmployeeStatus(e.target.value)}>
-										<option>Select Status...</option>
-										<option value="Active">Active</option>
-										<option value="Inactive">Inactive</option>
-									</Form.Control>
-								</Form.Group>
-							</div>
-
-						</Form>
+						</div>
 
 						<div className='main-form-container' >
-							<Form.Group as={Col} controlId="lastName" className='mt-3'>
-								<Form.Label>System Name</Form.Label>
-								<Form.Control
-									type="text"
-									placeholder="System Name"
-									value={systemName}
-									onChange={(e) =>
-										setSystemName(e.target.value)
-									}></Form.Control>
-							</Form.Group>
-							<Form.Group as={Col} controlId="LaptopType" className='mt-3'>
-								<Form.Label>System Type</Form.Label>
-								<Form.Control
-									as="select"
-
-									size="sm"
-									value={systemType}
-									onChange={(e) => setSystemType(e.target.value)}>
-									<option>Select System Type...</option>
-									<option value="Laptop">Laptop</option>
-									<option value="DeskTop">DeskTop</option>
-									<option value="All-in-one">All-in-one</option>
-								</Form.Control>
-							</Form.Group>
-
-							<Form.Group as={Col} controlId="laptopRamSize" className='mt-3'>
-								<Form.Label>Serial Number</Form.Label>
-								<Form.Control
-									type="text"
-									placeholder="Serial Number"
-									value={serialNumber}
-									onChange={(e) =>
-										setSerialNumber(e.target.value)
-									}></Form.Control>
-							</Form.Group>
-						</div>
-						<div className='main-form-container'>
-							<Form.Group as={Col} controlId="LaptopType" className='mt-3'>
-								<Form.Label>Monitor</Form.Label>
-								<Form.Control
-									type="text"
-									placeholder="Monitor"
-									value={monitor}
-									disabled={
-										systemType === "Laptop" || systemType === "All-in-one"
-									}
-									onChange={(e) =>
-										setMonitor(e.target.value)
-									}></Form.Control>
-							</Form.Group>
-
-							<Form.Group as={Col} controlId="SerialNumber" className='mt-3'>
-								<Form.Label>Monitor Serial Number</Form.Label>
-								<Form.Control
-									type="text"
-									placeholder="Monitor Serial Number"
-									value={monitorSerialNumber}
-									disabled={
-										systemType === "Laptop" || systemType === "All-in-one"
-									}
-									onChange={(e) =>
-										setMonitorSerialNumber(e.target.value)
-									}></Form.Control>
-							</Form.Group>
-
-							<Form.Group as={Col} controlId="RamSize">
-								<Form.Label>HDD Size</Form.Label>
-								<Form.Control
-									type="text"
-									placeholder="HDD Size"
-									value={HDD}
-									onChange={(e) => setHDD(e.target.value)}></Form.Control>
-							</Form.Group>
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Model Name</h6>
+								<input type="text"
+									className='AddJobinput' style={{ marginBottom: "15px", }}
+									value={inputs?.modelName}
+									onChange={(e) => handleOnChange("modelName", e.target.value)}
+									placeholder='Model Name' required />
+							</div>
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Serial Number</h6>
+								<input type="text"
+									className='AddJobinput' style={{ marginBottom: "15px", }}
+									value={inputs?.serialNumber}
+									onChange={(e) => handleOnChange("serialNumber", e.target.value)}
+									placeholder='Serial Number' required />
+							</div>
 						</div>
 
-						<div className='main-form-container'>
-							<Form.Group as={Col} controlId="LaptopType" className='mt-3'>
-								<Form.Label>Windows Version</Form.Label>
-								<Form.Control
-									as="select"
+						<div   >
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Laptop Status</h6>
 
-									size="sm"
-								// value={windowsVersion}
-								// onChange={(e) => setWindowsVersion(e.target.value)}
-								>
-									<option value="">Select Status...</option>
-									<option value="Windows 7 ">Windows 7 </option>
-									<option value="Windows 8  ">Windows 8 </option>
-									<option value="Windows 10">Windows 10</option>
-									<option value="Windows 11">Windows 11</option>
-								</Form.Control>
-							</Form.Group>
+								<select className="round"
+									style={{ marginBottom: "20px", marginTop: "10" }}
+									value={inputs?.laptopStatus}
+									onChange={(e) => handleOnChange("laptopStatus", e.target.value)}>
+									<option>Select Team</option>
+									{laptopStatus?.map((item: any, i: any) => (
+										<option key={i} value={item}>
+											{item}
+										</option>
+									))}
+								</select>
+							</div>
 
-							<Form.Group as={Col} controlId="laptopRamSize" className='mt-3'>
-								<Form.Label>Ram Size</Form.Label>
-								<Form.Control
-									as="select"
 
-									size="sm"
-									value={ramSize}
-									onChange={(e) => setRamSize(e.target.value)}>
-									<option value="">Select Ram Size...</option>
-									<option value="2">2gb </option>
-									<option value="4">4gb </option>
-									<option value="6">6gb</option>
-									<option value="8">8gb</option>
-									<option value="10">10gb</option>
-									<option value="12"> 12gb</option>
-									<option value="16"> 16gb</option>
-								</Form.Control>
-							</Form.Group>
-
-							<Form.Group as={Col} controlId="Status" className='mt-3'>
-								<Form.Label>Status</Form.Label>
-								<Form.Control
-									as="select"
-
-									size="sm"
-									value={status}
-									onChange={(e) => setStatus(e.target.value)}>
-									<option value="">Select Status...</option>
-									<option value="Good ">Good </option>
-									<option value="Faulty">Faulty</option>
-								</Form.Control>
-							</Form.Group>
-
-							<Form.Group as={Col} controlId="System Status" className='mt-3'>
-								<Form.Label>System Status</Form.Label>
-								<Form.Control
-									as="select"
-
-									size="sm"
-									value={systemStatus}
-									onChange={(e) => setSystemStatus(e.target.value)}>
-									<option value="">Select Status...</option>
-									<option value="In Use">In Use </option>
-									<option value="Not In Use">Not In Use</option>
-								</Form.Control>
-							</Form.Group>
+						</div>
+						<div className='main-form-container' >
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Date Issued</h6>
+								<input type="date"
+									className='AddJobinput' style={{ marginBottom: "15px", }}
+									value={inputs?.dateIssued}
+									onChange={(e) => handleOnChange("dateIssued", e.target.value)}
+									placeholder='Date Issued'
+									required />
+							</div>
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Retrieval Date</h6>
+								<input type="date"
+									className='AddJobinput' style={{ marginBottom: "15px", }}
+									value={inputs?.retrievalDate}
+									onChange={(e) => handleOnChange("retrievalDate", e.target.value)}
+									placeholder='Retrieval Date' required />
+							</div>
 						</div>
 
-						<Form.Group controlId="description" className='mt-3'>
-							<Form.Label>System Condition</Form.Label>
-							<Form.Control
-								as="textarea"
-								// size={4}
-								placeholder="Enter System Condition"
-								style={{ backgroundColor: "#fff" }}
-								value={systemCondition}
-								onChange={(e) => setSystemCondition(e.target.value)}
-							/>
-						</Form.Group>
-						{/* <Button
-							className="applyleave-btn mb-2 mr-3"
+						<div   >
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Previous User</h6>
+								<input type="text"
+									className='AddJobinput' style={{ marginBottom: "15px", }}
+									value={inputs?.previousUser}
+									onChange={(e) => handleOnChange("previousUser", e.target.value)}
+									placeholder='Previous User' required />
+							</div>
+						</div>
+						<div  >
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Comment</h6>
+								<textarea
+									rows={5}
+									className='AddJobinput' style={{ marginBottom: "5px", padding: "10px" }}
+									value={inputs?.comment}
+									onChange={(e) => handleOnChange("comment", e.target.value)}
+									placeholder='Comment' required />
+							</div>
+						</div>
 
-							// disabled={loadingCreate && true}
-							type="submit"
-							value="Create">
-							{/* {loadingCreate ? "Creating..." : "Create"} */}
-						{/* </Button>
-						<Button
-							className="mb-2"
-
-							onClick={handleClose}>
-							Close
-						</Button> */}
 						<div className="btn-modal-container">
 							<Button
 								variant="contained"
 								className="Add-btn-modal"
 								type="submit"
+
 							>
-								{/* {createisLoading ? (
+								{isLoading ? (
 									<Spinner animation="border" />
 								) : (
-									"Create Project"
-								)} */}
-								Create
+									"Create"
+								)}
+
 							</Button>
 						</div>
 					</Form>
-					{/* <div className="btn-modal-container">
-											<Button
-												variant="contained"
-												className="Add-btn-modal"
-												type="submit"
-											>
-												{createisLoading ? (
-													<Spinner animation="border" />
-												) : (
-													"Create Project"
-												)}
-											</Button>
-										</div> */}
+
 
 
 				</Modal.Body >

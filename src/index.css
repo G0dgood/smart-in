@@ -41,11 +41,75 @@ body {
   font-size: small !important;
 }
  
+
+#tfoot-ReactPaginate {
+  display: flex;
+  justify-content: space-between !important;
+  width: 100%;
+  /* background-color: #fff; */
+  padding: 0.8rem 0.4rem;
+  margin-top: 0.1rem;
+  font-family: "poppins" !important;
+  flex-wrap: wrap !important;
+  font-weight: bold !important;
+}
+
+#bg-Pagination{
+  display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.pagination-container {
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+    flex-wrap: wrap !important;
+}
+.pagination-container a {
+  color: #707683;
+  padding: 0.25rem 0.5rem;
+  user-select: none;
+  border: 1px solid #fff;
+  border-radius: 3px;
+text-decoration: none !important;
+}
+.pagination-container a:hover {
+  color: var(--clr-blue) !important;
+  border: 1px solid var(--clr-blue);
+}
+.pagination-active a,
+.pagination-active a:hover {
+  background:  linear-gradient(135deg, #21D4FD 0%, #124383 100%) !important;
+  /* background-color: var(--clr-blue); */
+  color: #fff !important;
+  /* border: 1px solid var(--clr-blue); */
+}
+#table-footer a.previous-btn,
+#table-footer a.next-btn {
+  color: var(--clr-blue);
+  border: 1px solid #005b90;
+}
+.pagination-disabled a,
+.pagination-disabled a:hover {
+  color: #b4b4b4 !important;
+  cursor: not-allowed;
+  border: 1px solid #b4b4b4 !important;
+}
+/* --- End Pagination --- */
+
+.profile-picture{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem
+}
  
  
  @import url(./styles/pages/login.css);
  @import url(./styles/compotent/header.css);
  @import url(./styles/css/bootstrap.css);
+ @import url(./styles/pages/RegisterUser.css);
  
  
  
