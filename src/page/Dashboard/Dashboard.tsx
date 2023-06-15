@@ -28,11 +28,11 @@ const Dashboard = () => {
 	});
 	const COMPLETED = getdata?.inventory?.filter((obj: { status: string; }) => {
 		// @ts-ignore
-		return obj?.deviceStatus !== "Not In Use";
+		return obj?.deviceStatus === "Not In Use" && obj?.status === "Good";
 	});
 	const Repair = getdata?.inventory?.filter((obj: { status: string; }) => {
 		// @ts-ignore
-		return obj?.status === "Faulty & Returned" || obj?.status === "Faulty";
+		return obj?.status === "Faulty" || obj?.deviceStatus === "Not In Use";
 	});
 	const faulty = getdata?.inventory?.filter((obj: { status: string; }) => {
 		// @ts-ignore

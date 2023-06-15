@@ -67,8 +67,8 @@ const KPIInfoDetails = ({ viewdata, id }: any) => {
 		});
 	}, [setInputs, user?.user?.id, viewdata]);
 
-	const laptopStatus = ["In Use & Active", "Not In Use"]
-	const Status = ["Good", "faulty", "Good & Returned", "Faulty & Returned"]
+	const laptopStatus = ["In Use", "Not In Use"]
+	const Status = ["Good", "Faulty"]
 
 	const handleOnChange = (input: any, value: any) => {
 		setInputs((prevState: any) => ({
@@ -211,7 +211,7 @@ const KPIInfoDetails = ({ viewdata, id }: any) => {
 										className='AddJobinput' style={{ marginBottom: "15px", }}
 										value={inputs?.laptopName}
 										onChange={(e) => handleOnChange("laptopName", e.target.value)}
-										placeholder='Laptop Name' required />
+										placeholder='Laptop Name' />
 								</div>
 								<div>
 									<h6 style={{ marginBottom: 10 }}>Model Name</h6>
@@ -259,7 +259,7 @@ const KPIInfoDetails = ({ viewdata, id }: any) => {
 										value={inputs?.dateIssued}
 										onChange={(e) => handleOnChange("dateIssued", e.target.value)}
 										placeholder='Date Issued'
-										required />
+									/>
 								</div>
 								<div>
 									<h6 style={{ marginBottom: 10 }}>Retrieval Date</h6>
@@ -267,7 +267,7 @@ const KPIInfoDetails = ({ viewdata, id }: any) => {
 										className='AddJobinput' style={{ marginBottom: "15px", }}
 										value={inputs?.retrievalDate}
 										onChange={(e) => handleOnChange("retrievalDate", e.target.value)}
-										placeholder='Retrieval Date' required />
+										placeholder='Retrieval Date' />
 								</div>
 							</div>
 
@@ -278,7 +278,7 @@ const KPIInfoDetails = ({ viewdata, id }: any) => {
 										className='AddJobinput' style={{ marginBottom: "15px", }}
 										value={inputs?.previousUser}
 										onChange={(e) => handleOnChange("previousUser", e.target.value)}
-										placeholder='Previous User' required />
+										placeholder='Previous User' />
 								</div>
 								<div>
 									<h6 style={{ marginBottom: 10 }}>Current User</h6>
@@ -286,7 +286,7 @@ const KPIInfoDetails = ({ viewdata, id }: any) => {
 										className='AddJobinput' style={{ marginBottom: "15px", }}
 										value={inputs?.currentUser}
 										onChange={(e) => handleOnChange("currentUser", e.target.value)}
-										placeholder='Current User' required />
+										placeholder='Current User' />
 								</div>
 							</div>
 							<div className='main-form-container-grid'>
@@ -328,7 +328,7 @@ const KPIInfoDetails = ({ viewdata, id }: any) => {
 										className='AddJobinput' style={{ marginBottom: "15px", }}
 										value={inputs?.vendor}
 										onChange={(e) => handleOnChange("vendor", e.target.value)}
-										placeholder='Vendor' required />
+										placeholder='Vendor' />
 								</div>
 								<div>
 									<h6 style={{ marginBottom: 10 }}>Date Assigned</h6>
@@ -336,7 +336,7 @@ const KPIInfoDetails = ({ viewdata, id }: any) => {
 										className='AddJobinput' style={{ marginBottom: "15px", }}
 										value={inputs?.dateAssigned}
 										onChange={(e) => handleOnChange("dateAssigned", e.target.value)}
-										placeholder='Date Assigned' required />
+										placeholder='Date Assigned' />
 								</div>
 							</div>
 
@@ -349,7 +349,7 @@ const KPIInfoDetails = ({ viewdata, id }: any) => {
 										className='AddJobinput' style={{ marginBottom: "5px", padding: "10px" }}
 										value={inputs?.comment}
 										onChange={(e) => handleOnChange("comment", e.target.value)}
-										placeholder='Comment' required />
+										placeholder='Comment' />
 								</div>
 							</div>
 

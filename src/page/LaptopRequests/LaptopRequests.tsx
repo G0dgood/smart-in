@@ -33,7 +33,7 @@ const LaptopRequests = () => {
 	});
 
 
-
+	console.log('item', getdata)
 	useEffect(() => {
 		dispatch(getInventory())
 

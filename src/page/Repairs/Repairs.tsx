@@ -27,7 +27,8 @@ const Repairs = () => {
 
 	// @ts-ignore
 	const COMPLETED = getdata?.inventory?.filter((obj: { status: string; }) => {
-		return obj?.status === "Faulty & Returned" || obj?.status === "Faulty ";
+		// @ts-ignore
+		return obj?.status === "Faulty" || obj?.deviceStatus === "Not In Use";
 	});
 
 

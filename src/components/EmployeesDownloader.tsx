@@ -17,6 +17,10 @@ const EmployeesDownloader = ({ data }: any) => {
     { label: "Serial Number", key: "employment_date" },
     { label: "Model Name", key: "modelName" },
     { label: "Previous User", key: "previousUser " },
+    { label: "Current User", key: "currentUser " },
+    { label: "Serial Number", key: "serialNumber " },
+    { label: "Ram Size", key: "ramSize " },
+    { label: "Hard Drive", key: "hardDrive " },
     { label: "Serial Number", key: "serialNumber " },
     { label: "comment", key: "comment" },
     { label: "Date Issued", key: "updatedAt" },
@@ -32,7 +36,10 @@ const EmployeesDownloader = ({ data }: any) => {
         laptopStatus: item?.laptopStatus,
         modelName: item?.modelName,
         previousUser: item?.previousUser,
+        currentUser: item?.currentUser,
         serialNumber: item?.serialNumber,
+        ramSize: item?.ramSize,
+        hardDrive: item?.hardDrive,
         comment: item?.comment,
         dateIssued:
           moment(item?.dateIssued).format("DD-MM-YYYY") === "Invalid date"

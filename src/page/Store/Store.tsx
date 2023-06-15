@@ -47,7 +47,7 @@ const Store: React.FC<containerProps> = () => {
 	// @ts-ignore
 	const COMPLETED = getdata?.inventory?.filter((obj: { status: string; }) => {
 		// @ts-ignore
-		return obj?.deviceStatus === "Not In Use";
+		return obj?.deviceStatus === "Not In Use" && obj?.status === "Good";
 	});
 
 
