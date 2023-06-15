@@ -53,14 +53,20 @@ const LaptopRequests = () => {
 	}, [dispatch, getisError, getmessage]);
 
 	const [data, setData] = useState([]);
+	const [filter, setfilter] = useState([]);
 	const [result, setResult] = useState([]);
 
 	useEffect(() => {
-		const results = COMPLETED?.filter((obj: any) =>
+
+		setfilter(COMPLETED)
+	}, [])
+
+	useEffect(() => {
+		const results = filter?.filter((obj: any) =>
 			obj?.status?.toLowerCase().includes(result)
 		);
 		setData(results);
-	}, [result]);
+	}, [filter, result]);
 
 	const [displayData, setDisplayData] = useState([]);
 

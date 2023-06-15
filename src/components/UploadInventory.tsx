@@ -6,7 +6,7 @@ import { fireAlert } from './Alert'
 import { useAppDispatch, useAppSelector } from '../store/useStore'
 import { FiUpload } from "react-icons/fi";
 import CSVReader from "react-csv-reader";
-import { UploadInventorys, getInventory } from '../features/Inventory/inventorySlice'
+import { UploadInventorys, getInventory, reset } from '../features/Inventory/inventorySlice'
 
 
 const UploadInventory = () => {
@@ -18,7 +18,7 @@ const UploadInventory = () => {
 
 	const [jsonData, setJSONData] = useState<any>([])
 	const [jsonData2, setJSONData2] = useState<any>({
-		laptopName: "Dell Laptop",
+		laptopName: "HP Laptop",
 		modelName: "AIR",
 		serialNumber: "eeeeee",
 		deviceStatus: "in-Use",
@@ -41,7 +41,6 @@ const UploadInventory = () => {
 	})
 
 
-
 	useEffect(() => {
 		setJSONData2((prevState: any) => {
 			return ({
@@ -55,13 +54,13 @@ const UploadInventory = () => {
 		setInputs((prevState: any) => {
 			return ({
 				...prevState,
-				inventoryArray: jsonData2,
+				inventoryArray: [jsonData2],
 
 			});
 		});
 	}, [jsonData2, setInputs]);
 
-	console.log('inputs', inputs)
+
 
 	const [progress, setProgress] = useState(0);
 	const [show, setShow] = useState(false);
@@ -87,6 +86,7 @@ const UploadInventory = () => {
 			setShow(false)
 			dispatch(getInventory())
 			setProgress(0)
+			reset()
 		} else if (uploadisError) {
 			fireAlert('Upload Inventory', uploadmessage, "error");
 			setProgress(0)
