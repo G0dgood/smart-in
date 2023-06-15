@@ -393,14 +393,12 @@ textarea{
   align-items: center;
 }
 
-#performance .evaluation-area .added-field-hod div:not(div:nth-child(1)) {
+ .added-field-hod div:not(div:nth-child(1)) {
   text-align: center;
   border-left: 1px solid var(--clr-border);
+  
 }
-#performance .evaluation-area .added-field div:not(div:nth-child(1)) {
-  text-align: center;
-  border-left: 1px solid var(--clr-border);
-}
+ 
 
 .hod-comment {
   margin-top: 1rem;
@@ -436,7 +434,7 @@ textarea{
 
 #performance .grade_item {
   display: grid;
-  grid-template-columns: .5fr 2fr;
+  grid-template-columns: 1fr 2fr;
 }
 
 #performance .grade_item p {
@@ -444,8 +442,11 @@ textarea{
   border-top: 1px solid #eeeeee;
 }
 #performance .grade_item p:first-of-type {
-  text-align: center;
+  // text-align: center;
+  margin-left: 1rem;
   border-right: 1px solid #eeeeee;
+  font-weight: bold;
+  color: #080808;
 }
 
 #performance .area-grid .table-link a {

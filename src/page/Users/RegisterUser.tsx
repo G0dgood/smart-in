@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../store/useStore'
 import { fireAlert } from '../../components/Alert'
 import Pagination from '../../components/Pagination'
 import RegisterModal from '../../components/RegisterModal'
+import EditRegisterModal from '../../components/EditRegisterModal'
 
 const RegisterUser = () => {
 	// --- Pagination --- //
@@ -90,12 +91,13 @@ const RegisterUser = () => {
 												</button>
 											</td>
 											<td className="table-datacell datatype-numeric">
-												<NavLink
+												{/* <NavLink
 													to={`/laptopinform/${item._id}/update`}
 													className="table-link"
 													style={{ background: "#E2522E", boxShadow: "none" }}>
 													View
-												</NavLink>
+												</NavLink> */}
+												<EditRegisterModal />
 											</td>
 										</tr>
 									)))}

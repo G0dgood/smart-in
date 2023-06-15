@@ -14,10 +14,13 @@ const LoginUser = () => {
 	const [entriesPerPage, setEntriesPerPage] = useState(() => {
 		return localStorage.getItem("reportsPerPages") || "10";
 	});
-	const [displayData2, setDisplayData2] = useState([dataLoginUser?.currentUser]);
+	const [displayData2, setDisplayData2] = useState<any>([]);
 
 
+	useEffect(() => {
+		setDisplayData2([dataLoginUser?.currentUser])
 
+	}, [dataLoginUser?.currentUser])
 
 	useEffect(() => {
 		if (isErrorLoginUser) {

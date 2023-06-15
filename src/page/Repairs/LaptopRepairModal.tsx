@@ -20,8 +20,7 @@ const LaptopRepairModal = () => {
 	const [windowsVersion, setWindowsVersion] = useState<Boolean>(false);
 	const [status, setStatus] = useState("");
 	const [systemCondition, setSystemCondition] = useState("");
-	const [systemStatus, setSystemStatus] = useState("");
-	const [showMessage, setShowMessage] = useState(false);
+
 
 
 	const submitHandler = () => {

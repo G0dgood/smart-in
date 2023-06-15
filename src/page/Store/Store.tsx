@@ -44,7 +44,11 @@ const Store: React.FC<containerProps> = () => {
 
 	}, [dispatch])
 
-	console.log('getdata', getdata)
+	// @ts-ignore
+	const COMPLETED = getdata?.inventory?.filter((obj: { status: string; }) => {
+		// @ts-ignore
+		return obj?.deviceStatus === "Not In Use";
+	});
 
 
 	const [displayData, setDisplayData] = useState([]);
@@ -91,9 +95,9 @@ const Store: React.FC<containerProps> = () => {
 							{
 								getisLoading ? (
 									<TableFetch colSpan={14} />
-								) : getdata?.inventory === 0 || getdata?.inventory === undefined ? (
+								) : COMPLETED === 0 || COMPLETED === undefined ? (
 									<NoRecordFound colSpan={14} />
-								) : (getdata?.inventory?.map((item: any, i: any) => (
+								) : (COMPLETED?.map((item: any, i: any) => (
 									<li key={i}>
 										<div className="card">
 											<div className="card__img-wrapper">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { EntriesPerPage, NoRecordFound, TableFetch } from '../../components/TableOptions'
+import { EntriesPerPage, MainSearch, NoRecordFound, TableFetch } from '../../components/TableOptions'
 import moment from 'moment';
 import LaptopAssignModal from './LaptopAssignModal';
 import TableLoader from '../../components/TableLoader';
@@ -8,10 +8,12 @@ import { useAppDispatch, useAppSelector } from '../../store/useStore';
 import { getInventory, reset } from '../../features/Inventory/inventorySlice';
 import Pagination from '../../components/Pagination';
 import { fireAlert } from '../../components/Alert';
+import UploadInventory from '../../components/UploadInventory';
 
 const LaptopRequests = () => {
 	const dispatch = useAppDispatch();
 	const { getdata, getisError, getmessage, getisLoading } = useAppSelector((state: any) => state.inventory);
+	const { uploadisSuccess } = useAppSelector((state: any) => state.inventory);
 
 	const { isSuccess } = useAppSelector((state: any) => state.inventory);
 
@@ -24,6 +26,11 @@ const LaptopRequests = () => {
 		localStorage.setItem("reportsPerPages", entriesPerPage);
 	}, [entriesPerPage]);
 
+	// @ts-ignore
+	const COMPLETED = getdata?.inventory?.filter((obj: { status: string; }) => {
+		// @ts-ignore
+		return obj?.deviceStatus !== "Not In Use";
+	});
 
 
 
@@ -45,6 +52,16 @@ const LaptopRequests = () => {
 		}
 	}, [dispatch, getisError, getmessage]);
 
+	const [data, setData] = useState([]);
+	const [result, setResult] = useState([]);
+
+	useEffect(() => {
+		const results = COMPLETED?.filter((obj: any) =>
+			obj?.status?.toLowerCase().includes(result)
+		);
+		setData(results);
+	}, [result]);
+
 	const [displayData, setDisplayData] = useState([]);
 
 
@@ -57,12 +74,18 @@ const LaptopRequests = () => {
 					</div>
 					<div>
 						<EntriesPerPage
-							data={getdata?.inventory}
+							data={data}
 							entriesPerPage={entriesPerPage}
 							setEntriesPerPage={setEntriesPerPage}
 						/>
 					</div>
 					<div>
+						<MainSearch placeholder={'Search...     Inventories '}
+							value={result}
+							onChange={(e: any) => setResult(e.target.value)} />
+					</div>
+					<div style={{ display: "flex" }}>
+						<UploadInventory />
 						<LaptopAssignModal />
 					</div>
 				</div>
@@ -93,7 +116,7 @@ const LaptopRequests = () => {
 									) : (displayData?.map((item: any, i: any) => (
 										<tr className="data-table-row" key={i}>
 											<td className="table-datacell datatype-numeric">{item?.laptopName}</td>
-											<td className="table-datacell datatype-numeric">{item?.laptopStatus}</td>
+											<td className="table-datacell datatype-numeric">{item?.deviceStatus}</td>
 											<td className="table-datacell datatype-numeric">{item?.serialNumber}</td>
 											<td className="table-datacell datatype-numeric">{item?.modelName} </td>
 											<td className="table-datacell datatype-numeric">{item?.previousUser}</td>
@@ -119,7 +142,7 @@ const LaptopRequests = () => {
 				<footer className="main-table-footer">
 					<Pagination
 						setDisplayData={setDisplayData}
-						data={getdata?.inventory}
+						data={data}
 						entriesPerPage={entriesPerPage}
 						Total={"Leave"}
 					/>

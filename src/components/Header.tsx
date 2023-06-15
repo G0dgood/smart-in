@@ -10,7 +10,7 @@ import { IoIosNotifications } from "react-icons/io";
 import toast, { Toaster } from "react-hot-toast";
 // import LogoutOption from "./LogoutOption";
 // import Notification from "./Notification/Notification";
-import { callback } from "chart.js/dist/helpers/helpers.core";
+
 import { logout } from "../features/Auth/authService";
 import { useAppDispatch } from "../store/useStore";
 import UserProfile from "./UserProfile";
@@ -18,7 +18,8 @@ import UserProfile from "./UserProfile";
 
 const Header = ({ toggleSideNav }: any) => {
   const dispatch = useAppDispatch()
-
+  // @ts-ignore
+  const user = JSON.parse(localStorage.getItem("userin"));
 
   const [network, setnetwork] = useState<any>();
   const [dropDown, setDropDown] = useState(false);
@@ -35,7 +36,7 @@ const Header = ({ toggleSideNav }: any) => {
   }, []);
 
 
-
+  console.log('user', user)
 
 
 
@@ -113,21 +114,17 @@ const Header = ({ toggleSideNav }: any) => {
             <h6>SMART INVENTORY</h6>
           </div>
 
-          <span className="header-logo-text1">
-            {"Johndoe.go@gmail.com"}
-          </span>
+          <span style={{ fontWeight: "bold" }}>{user?.user?.email}</span>
         </div>
         <div className="hand-noficational-place">
 
 
 
-          <div
-            className="d-flex header-user-details"
-            // onClick={() => setDropDown(!dropDown)}
+          <div className="d-flex header-user-details" style={{ border: "1px solid #7D249C", borderRadius: "20px", padding: "5px" }}
             onClick={() => setDropDown(true)}
           >
             <span className="dropdown-names">
-              {/* {userInfo?.employee?.full_name} */}
+              {user?.user?.firstName} {" "}{user?.user?.LastName}
             </span>
             <div className="preview-header img-container-header">
               <FaUserCircle size={22} />

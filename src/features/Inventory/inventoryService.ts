@@ -30,10 +30,28 @@ const viewInventory = async (id: any) => {
 }
 
 
-const updateInventory = async (value: any,) => {
+const updateInventory = async (value: any) => {
 	const {inputs, id } = value
 	// @ts-ignore
 	const { data }:  any = await axios.patch(baseUrl+ `/api/v1/inventory/${id}`,inputs, config) 
+	return data
+}
+const UploadInventorys = async ( value:any) => {
+  
+const {inputs ,setProgress } = value
+ 
+	// @ts-ignore
+	const { data }:  any = await axios.post(baseUrl+ `/api/v1/inventory/create-many-inventory`,inputs, {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+          onUploadProgress: (data) => {
+											//Set the progress value to show the progress bar
+												// @ts-ignore
+            setProgress(Math.round((100 * data.loaded) / data.total));
+          },
+        }) 
 	return data
 }
 
@@ -45,7 +63,8 @@ const inventoryService = {
 	createInventory,
 	 getInventory,
 	  viewInventory,
-	  updateInventory,
+	updateInventory,
+			UploadInventorys
 }
 
 export default inventoryService

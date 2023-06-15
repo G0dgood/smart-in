@@ -21,11 +21,17 @@ const LaptopAssignModal = () => {
 		laptopName: "",
 		modelName: "",
 		serialNumber: "",
-		laptopStatus: "",
+		deviceStatus: "",
 		dateIssued: "",
 		retrievalDate: "",
 		previousUser: "",
 		comment: "",
+		hardDrive: " ",
+		ramSize: " ",
+		status: " ",
+		vendor: "",
+		currentUser: "",
+		dateAssigned: "",
 		userId: "",
 	})
 
@@ -43,7 +49,6 @@ const LaptopAssignModal = () => {
 		}
 
 	}, [dispatch, isError, isSuccess, message]);
-
 
 
 
@@ -72,7 +77,8 @@ const LaptopAssignModal = () => {
 			[input]: value,
 		}));
 	};
-	const laptopStatus = ["Active", "Inactive"]
+	const laptopStatus = ["In Use & Active", "Not In Use"]
+	const Status = ["Good", "Faulty", "Good & Returned", "Faulty & Returned"]
 
 	return (
 		<div>
@@ -98,21 +104,16 @@ const LaptopAssignModal = () => {
 				</Modal.Header>
 				<Modal.Body>
 					<Form onSubmit={submitHandler}>
-						<div>
-							<Form.Group as={Col} controlId="FirstName" className='mt-3'>
-								<div>
-									<h6 style={{ marginBottom: 10 }}>Laptop Name</h6>
-									<input type="text"
-										className='AddJobinput' style={{ marginBottom: "15px", }}
-										value={inputs?.laptopName}
-										onChange={(e) => handleOnChange("laptopName", e.target.value)}
-										placeholder='Laptop Name' required />
-								</div>
-							</Form.Group>
-
-						</div>
-
 						<div className='main-form-container' >
+
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Laptop Name</h6>
+								<input type="text"
+									className='AddJobinput' style={{ marginBottom: "15px", }}
+									value={inputs?.laptopName}
+									onChange={(e) => handleOnChange("laptopName", e.target.value)}
+									placeholder='Laptop Name' required />
+							</div>
 							<div>
 								<h6 style={{ marginBottom: 10 }}>Model Name</h6>
 								<input type="text"
@@ -121,6 +122,11 @@ const LaptopAssignModal = () => {
 									onChange={(e) => handleOnChange("modelName", e.target.value)}
 									placeholder='Model Name' required />
 							</div>
+
+						</div>
+
+						<div className='main-form-container' >
+
 							<div>
 								<h6 style={{ marginBottom: 10 }}>Serial Number</h6>
 								<input type="text"
@@ -129,16 +135,12 @@ const LaptopAssignModal = () => {
 									onChange={(e) => handleOnChange("serialNumber", e.target.value)}
 									placeholder='Serial Number' required />
 							</div>
-						</div>
-
-						<div   >
 							<div>
-								<h6 style={{ marginBottom: 10 }}>Laptop Status</h6>
-
+								<h6 style={{ marginBottom: 10 }}>Device Status</h6>
 								<select className="round"
 									style={{ marginBottom: "20px", marginTop: "10" }}
-									value={inputs?.laptopStatus}
-									onChange={(e) => handleOnChange("laptopStatus", e.target.value)}>
+									value={inputs?.deviceStatus}
+									onChange={(e) => handleOnChange("deviceStatus", e.target.value)}>
 									<option>Select Team</option>
 									{laptopStatus?.map((item: any, i: any) => (
 										<option key={i} value={item}>
@@ -147,9 +149,9 @@ const LaptopAssignModal = () => {
 									))}
 								</select>
 							</div>
-
-
 						</div>
+
+
 						<div className='main-form-container' >
 							<div>
 								<h6 style={{ marginBottom: 10 }}>Date Issued</h6>
@@ -170,7 +172,7 @@ const LaptopAssignModal = () => {
 							</div>
 						</div>
 
-						<div   >
+						<div className='main-form-container'>
 							<div>
 								<h6 style={{ marginBottom: 10 }}>Previous User</h6>
 								<input type="text"
@@ -179,7 +181,67 @@ const LaptopAssignModal = () => {
 									onChange={(e) => handleOnChange("previousUser", e.target.value)}
 									placeholder='Previous User' required />
 							</div>
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Current User</h6>
+								<input type="text"
+									className='AddJobinput' style={{ marginBottom: "15px", }}
+									value={inputs?.currentUser}
+									onChange={(e) => handleOnChange("currentUser", e.target.value)}
+									placeholder='Current User' required />
+							</div>
 						</div>
+						<div className='main-form-container-grid'>
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Hard Drive</h6>
+								<input type="text"
+									className='AddJobinput' style={{ marginBottom: "15px", }}
+									value={inputs?.hardDrive}
+									onChange={(e) => handleOnChange("hardDrive", e.target.value)}
+									placeholder='Hard Drive' required />
+							</div>
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Ram Size</h6>
+								<input type="text"
+									className='AddJobinput' style={{ marginBottom: "15px", }}
+									value={inputs?.ramSize}
+									onChange={(e) => handleOnChange("ramSize", e.target.value)}
+									placeholder='Ram Size' required />
+							</div>
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Status</h6>
+								<select className="round"
+									style={{ marginBottom: "20px", marginTop: "10" }}
+									value={inputs?.status}
+									onChange={(e) => handleOnChange("status", e.target.value)}>
+									<option>Select status</option>
+									{Status?.map((item: any, i: any) => (
+										<option key={i} value={item}>
+											{item}
+										</option>
+									))}
+								</select>
+							</div>
+						</div>
+						<div className='main-form-container'>
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Vendor</h6>
+								<input type="text"
+									className='AddJobinput' style={{ marginBottom: "15px", }}
+									value={inputs?.vendor}
+									onChange={(e) => handleOnChange("vendor", e.target.value)}
+									placeholder='Vendor' required />
+							</div>
+							<div>
+								<h6 style={{ marginBottom: 10 }}>Date Assigned</h6>
+								<input type="date"
+									className='AddJobinput' style={{ marginBottom: "15px", }}
+									value={inputs?.dateAssigned}
+									onChange={(e) => handleOnChange("dateAssigned", e.target.value)}
+									placeholder='Date Assigned' required />
+							</div>
+						</div>
+
+
 						<div  >
 							<div>
 								<h6 style={{ marginBottom: 10 }}>Comment</h6>

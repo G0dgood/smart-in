@@ -61,13 +61,14 @@ const Barchat = ({ employees, departments }: any) => {
         data: [20, 40, 10, 100, 50, 70],
         backgroundColor: "#7D249C",
         barPercentage: 0.2,
+        borderRadius: 15
       },
     ],
   };
   return (
     <div
-      className="chat-container"
-      style={{ height: "100%", width: "100%", borderRadius: "50px" }}
+      // className="chat-container"
+      style={{ height: "80%", width: "100%", borderRadius: "50px" }}
     >
 
       <Bar

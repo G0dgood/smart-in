@@ -1,6 +1,7 @@
 import { Spinner } from "react-bootstrap";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { VscCloudDownload } from "react-icons/vsc";
+import Search from "./Search";
 // import Search from "./Search";
 
 // EntriesPerPage
@@ -110,7 +111,7 @@ const MainSearch = ({ placeholder, result, onChange }: any) => {
   return (
 
     <div className="search-entries">
-      {/* <Search placeHolder={placeholder} value={result} onChange={onChange} /> */}
+      <Search placeHolder={placeholder} value={result} onChange={onChange} />
     </div>
     // <div className="Search-input-bg">
     //   <GoSearch className="Search-input" />

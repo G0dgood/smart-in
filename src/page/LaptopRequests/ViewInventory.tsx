@@ -26,11 +26,18 @@ const ViewInventory = () => {
 
 
 	const gradeSystem = [
-		{ rate: 5, definition: viewdata?.laptopName },
-		{ rate: 4, definition: viewdata?.previousUser },
-		{ rate: 3, definition: viewdata?.serialNumber },
-		{ rate: 2, definition: viewdata?.laptopStatus },
-		{ rate: 1, definition: viewdata?.comment },
+		{ rate: "laptop Name", definition: viewdata?.laptopName },
+		{ rate: "previousUser", definition: viewdata?.previousUser },
+		{ rate: "Serial Number", definition: viewdata?.serialNumber },
+		{ rate: "Device Status", definition: viewdata?.deviceStatus },
+		{ rate: "Status", definition: viewdata?.status },
+		{ rate: "hardDrive", definition: viewdata?.hardDrive },
+		{ rate: "Ram Size", definition: viewdata?.ramSize },
+		{ rate: "Vendor", definition: viewdata?.vendor },
+		{ rate: "Current User", definition: viewdata?.currentUser },
+		{ rate: "Retrieval Date", definition: moment(viewdata?.retrievalDate).format("DD-MM-YYYY") },
+		{ rate: "Date Assigned", definition: moment(viewdata?.dateAssigned).format("DD-MM-YYYY") },
+		{ rate: "comment", definition: viewdata?.comment },
 	]
 
 
